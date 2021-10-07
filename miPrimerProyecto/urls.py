@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from miPrimerProyecto.views import get_image, hello_json, hello_world, load_image_by_id, load_image_by_id2, time
+from miPrimerProyecto.views import get_image, hello_json, hello_world, load_city_list, load_image_by_id, load_image_by_id2, test, time
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,9 +25,8 @@ urlpatterns = [
     path('time/', time),
     path('hello-json/', hello_json),
     path('image/', get_image),
-    # path('image/bogota', get_image_bogota),
-    # path('image/medellin', get_image_medellin),
-    # path('image/cali', get_image_cali),
     path('image/<str:city_id>', load_image_by_id),
-    path('template-test/<str:city_id>', load_image_by_id2)
-]
+    path('template-test/<str:city_id>', load_image_by_id2),
+    path('cities-list/', load_city_list),
+    path('template-base-test/', test)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,8 +1,9 @@
 from django.http import HttpResponse, JsonResponse
-from django.template import Template, Context
+from django.template import Template, Context, loader
+from django.shortcuts import render
 import datetime
 
-from miPrimerProyecto.utils.cities import get_city_by_id
+from miPrimerProyecto.utils.cities import get_all_cities, get_city_by_id
 
 def hello_world(request):
   return HttpResponse('Hello world from Django!')
@@ -48,9 +49,17 @@ def load_image_by_id(request, city_id):
 
 def load_image_by_id2(request, city_id):
   city = get_city_by_id(city_id)
-  template_path = "miPrimerProyecto/templates/city.html"
-  template_file = open(template_path, 'r')
-  template = Template(template_file.read())
-  template_file.close()
-  template_render = template.render(Context(city))
-  return HttpResponse(template_render)
+  # template = loader.get_template('city.html')
+  # render = template.render(city)
+  # return HttpResponse(render)
+  return render(request, 'city.html', city)
+
+def load_city_list(request):
+  cities = get_all_cities()
+  render = loader.get_template('city-list.html').render({'cities': cities})
+  return HttpResponse(render)
+
+def test(request):
+  template = loader.get_template('base-test.html')
+  render = template.render({})
+  return HttpResponse(render)

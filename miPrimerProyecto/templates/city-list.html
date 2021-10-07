@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de ciudades{% endblock title %}
+
+{% block content %}
+  <h1>Lista de ciudades</h1>
+  <div class="container">
+    {% for city in cities %}
+      <div class="city-card">
+        <img class="city-card-img" src="{{city.imageUrl}}" alt="{{city.name}}">
+        <div>
+          <h2>{{city.name}} ({{city.name | wordcount}})</h2>
+          {% if city.hasMontains %}
+            <p><i class="fas fa-mountain"></i></p>
+          {% endif %}
+          
+          {% if city.hasSea %}
+            <p><i class="fas fa-water"></i></p>
+          {% endif %}
+          <a href="/template-test/{{city.id}}">Ver ciudad</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de ciudades</title>
+  <link rel="stylesheet" href="{% static 'css/city-list-styles.css' %}"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <h1>Lista de ciudades</h1>
+  <div class="container">
+    {% for city in cities %}
+      <div class="city-card">
+        <img class="city-card-img" src="{{city.imageUrl}}" alt="{{city.name}}">
+        <div>
+          <h2>{{city.name}} ({{city.name | wordcount}})</h2>
+          {% if city.hasMontains %}
+            <p><i class="fas fa-mountain"></i></p>
+          {% endif %}
+          
+          {% if city.hasSea %}
+            <p><i class="fas fa-water"></i></p>
+          {% endif %}
+          <a href="/template-test/{{city.id}}">Ver ciudad</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html> {% endcomment %}
